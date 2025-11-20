@@ -1,7 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -10,28 +11,43 @@ const index = () => {
     { id: Number; value: String; completed: Boolean }[]
   >([]);
 
+  useEffect(() => {
+    async function  loadTodos() {
+      const savedTodos = await AsyncStorage.getItem("todos");
+      const data = savedTodos ? JSON.parse(savedTodos) : [];
+      setTodos(data);
+    }
+    loadTodos();
+  }, []);
+
   const [todoValue, setTodoValue] = useState("");
 
-  function addTodo() {
-    setTodos([
+  async function addTodo() {
+    const newTodo = [
       ...todos,
       {
         id: todos.length,
         value: todoValue,
         completed: false,
       },
-    ]);
+    ];
+    setTodos(newTodo);
+    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
     setTodoValue("");
   }
 
-  function completeTodo(id: Number) {
-    setTodos(
-      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+  async function completeTodo(id: Number) {
+    const newTodo = todos.map((t) =>
+      t.id === id ? { ...t, completed: !t.completed } : t
     );
+    setTodos(newTodo);
+    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
   }
 
-  function deleteTodo(id: Number) {
-    setTodos(todos.filter((t) => t.id !== id));
+  async function deleteTodo(id: Number) {
+    const newTodo = todos.filter((t) => t.id !== id);
+    setTodos(newTodo);
+    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
   }
 
   return (
