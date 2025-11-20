@@ -6,18 +6,23 @@ import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const index = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      value: "Watch youtube",
-      completed: false,
-    },
-    {
-      id: 2,
-      value: "Study",
-      completed: true,
-    },
-  ]);
+  const [todos, setTodos] = useState<
+    { id: Number; value: String; completed: Boolean }[]
+  >([]);
+
+  const [todoValue, setTodoValue] = useState("");
+
+  function addTodo() {
+    setTodos([
+      ...todos,
+      {
+        id: todos.length,
+        value: todoValue,
+        completed: false,
+      },
+    ]);
+    setTodoValue("");
+  }
 
   return (
     <View className="p-4 bg-gray-900 flex-1">
@@ -38,13 +43,15 @@ const index = () => {
           <TextInput
             className="w-full h-14 bg-transparent border-2 border-blue-100 rounded-full text-xl p-4 py-0 text-white placeholder:text-2x placeholder:text-[#b5b7b8]"
             placeholder="Enter todo name"
+            onChangeText={setTodoValue}
+            value={todoValue}
           ></TextInput>
           <Pressable
             style={{
               position: "absolute",
               right: 20,
             }}
-            onPress={() => console.log(`hello i am pressed ${1}`)}
+            onPress={addTodo}
           >
             <FontAwesome5 name="plus-circle" size={24} color="#fbbf24" />
           </Pressable>
