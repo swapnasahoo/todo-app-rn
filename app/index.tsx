@@ -24,6 +24,14 @@ const index = () => {
     setTodoValue("");
   }
 
+  function completeTodo(id: Number) {
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+    );
+  }
+
+  
+
   return (
     <View className="p-4 bg-gray-900 flex-1">
       <SafeAreaView
@@ -64,11 +72,13 @@ const index = () => {
           renderItem={({ item }) => {
             return (
               <View className="flex-row items-start bg-gray-800 gap-4 p-4 rounded-xl shadow-xs mb-4">
-                {item.completed ? (
-                  <Feather name="check-circle" size={24} color="white" />
-                ) : (
-                  <Feather name="circle" size={24} color="white" />
-                )}
+                <Pressable onPress={() => completeTodo(item.id)}>
+                  {item.completed ? (
+                    <Feather name="check-circle" size={24} color="white" />
+                  ) : (
+                    <Feather name="circle" size={24} color="white" />
+                  )}
+                </Pressable>
                 <View>
                   <Text
                     className={`font-semibold text-2xl 
