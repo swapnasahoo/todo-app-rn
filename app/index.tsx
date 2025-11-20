@@ -30,7 +30,9 @@ const index = () => {
     );
   }
 
-  
+  function deleteTodo(id: Number) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
 
   return (
     <View className="p-4 bg-gray-900 flex-1">
@@ -92,6 +94,7 @@ const index = () => {
                       name="trash-arrow-up"
                       size={24}
                       color="white"
+                      onPress={() => deleteTodo(item.id)}
                     />
                   </View>
                 </View>
