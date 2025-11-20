@@ -2,19 +2,13 @@ import Feather from "@expo/vector-icons/Feather";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useColorScheme } from "nativewind";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  Pressable,
-  Text,
-  TextInput,
-  useColorScheme,
-  View,
-} from "react-native";
+import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const index = () => {
-  const scheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
 
   const [todos, setTodos] = useState<
     { id: Number; value: String; completed: Boolean }[]
@@ -89,7 +83,7 @@ const index = () => {
             <FontAwesome5
               name="plus-circle"
               size={24}
-              color={scheme === "light" ? "#2a2a2a" : "#fbbf24"}
+              color={colorScheme === "light" ? "#2a2a2a" : "#fbbf24"}
             />
           </Pressable>
         </View>
@@ -106,13 +100,13 @@ const index = () => {
                     <Feather
                       name="check-circle"
                       size={24}
-                      color={scheme === "light" ? "black" : "white"}
+                      color={colorScheme === "light" ? "black" : "white"}
                     />
                   ) : (
                     <Feather
                       name="circle"
                       size={24}
-                      color={scheme === "light" ? "black" : "white"}
+                      color={colorScheme === "light" ? "black" : "white"}
                     />
                   )}
                 </Pressable>
@@ -127,12 +121,12 @@ const index = () => {
                     <FontAwesome6
                       name="edit"
                       size={24}
-                      color={scheme === "light" ? "black" : "white"}
+                      color={colorScheme === "light" ? "black" : "white"}
                     />
                     <FontAwesome6
                       name="trash-arrow-up"
                       size={24}
-                      color={scheme === "light" ? "black" : "white"}
+                      color={colorScheme === "light" ? "black" : "white"}
                       onPress={() => deleteTodo(item.id)}
                     />
                   </View>

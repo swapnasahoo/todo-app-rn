@@ -1,17 +1,20 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
+import { useColorScheme } from "nativewind";
 import React from "react";
 
 const _layout = () => {
+  const { colorScheme } = useColorScheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: "#1b2438",
-          borderTopColor: "#33363d",
+          backgroundColor: `${colorScheme === "light" ? "#e5e9f2" : "#1b2438"}`,
+          borderTopColor: `${colorScheme === "light" ? "#d9dce3" : "#33363d"}`,
         },
-        tabBarActiveTintColor: "#e05f25",
+        tabBarActiveTintColor: `${colorScheme === "light" ? "#ff7a33" : "#e05f25"}`,
       }}
     >
       <Tabs.Screen
