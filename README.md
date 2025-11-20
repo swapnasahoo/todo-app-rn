@@ -15,4 +15,20 @@ This is a simple todo app created using React Native + Expo. It allows you to cr
 3. Storing todos into Database
 4. Real time sync
 
+# Steps to install
+
+```bash
+# Clone respository
+git clone https://github.com/swapnasahoo/todo-app-rn.git
+
+# Move to project folder
+cd todo-app-rn
+
+# Install dependecies
+npm install
+
+# Run development server
+npx expo start --clear
+```
+
 ## THANKS FOR CHECKING IT OUT!
