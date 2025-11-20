@@ -1,7 +1,7 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useColorScheme } from "nativewind";
 import React, { useState } from "react";
-import { Switch, Text, View } from "react-native";
+import { Pressable, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const settings = () => {
@@ -16,6 +16,17 @@ const settings = () => {
         <Text className="text-amber-600 dark:text-amber-500 text-4xl font-semibold m-4 mt-6">
           Settings
         </Text>
+
+        <Pressable
+          onPress={() => {
+            setColorScheme(null);
+            enabled ? setEnabled(false) : "";
+          }}
+        >
+          <Text className="text-white ml-auto mr-[5%] bg-red-600 px-4 py-1 rounded-md">
+            Reset
+          </Text>
+        </Pressable>
 
         <View className="items-center mt-5">
           <View className="flex-row items-center bg-gray-100 dark:bg-gray-800 shadow-2xs w-[90%] gap-4 px-4 py-1 rounded-md">

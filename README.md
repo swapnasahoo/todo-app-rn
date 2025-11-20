@@ -7,6 +7,7 @@ This is a simple todo app created using React Native + Expo. It allows you to cr
 1. Create Todos
 2. Update status of created Todos
 3. Delete Todos if needed
+4. Switch theme between light, dark and system
 
 # Upcoming features
 
