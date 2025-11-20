@@ -12,7 +12,7 @@ const index = () => {
   >([]);
 
   useEffect(() => {
-    async function  loadTodos() {
+    async function loadTodos() {
       const savedTodos = await AsyncStorage.getItem("todos");
       const data = savedTodos ? JSON.parse(savedTodos) : [];
       setTodos(data);
@@ -20,34 +20,32 @@ const index = () => {
     loadTodos();
   }, []);
 
+  useEffect(() => {
+    AsyncStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const [todoValue, setTodoValue] = useState("");
 
   async function addTodo() {
-    const newTodo = [
+    setTodos([
       ...todos,
       {
         id: todos.length,
         value: todoValue,
         completed: false,
       },
-    ];
-    setTodos(newTodo);
-    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
+    ]);
     setTodoValue("");
   }
 
   async function completeTodo(id: Number) {
-    const newTodo = todos.map((t) =>
-      t.id === id ? { ...t, completed: !t.completed } : t
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
-    setTodos(newTodo);
-    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
   }
 
   async function deleteTodo(id: Number) {
-    const newTodo = todos.filter((t) => t.id !== id);
-    setTodos(newTodo);
-    await AsyncStorage.setItem("todos", JSON.stringify(newTodo));
+    setTodos(todos.filter((t) => t.id !== id));
   }
 
   return (
